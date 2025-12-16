@@ -79,6 +79,8 @@ async def chat_completions(request: Request, token: str = Depends(authenticate))
     # 获取原始请求数据
     try:
         raw_data = await request.json()
+        # 打印请求体
+        log.info(f"[v1/chat/completions] Request body: {json.dumps(raw_data, ensure_ascii=False, indent=2)}")
     except Exception as e:
         log.error(f"Failed to parse JSON request: {e}")
         raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
